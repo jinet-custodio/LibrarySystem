@@ -1,5 +1,5 @@
 <?php
-require 'config/dbcon.php';
+require '../config/dbcon.php';
 session_start();
 //$userID = mysqli_real_escape_string($conn, $_GET['id']);
 //$_SESSION['userID'] =  $userID;
@@ -15,7 +15,7 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/Asset/CSS/Index.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
     <style>
         h1,
         h3 {
@@ -92,8 +92,9 @@ session_start();
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) {
             foreach ($result as $category) {
+                //add userid get variable to the href using & (example href="../index.php?category=<?= $category['abbrev']?greaterthan & userID =<?= $userID ? =greaterthan)
         ?>
-                <a href="../index.php?category=<?= $category['abbrev'] ?>" type="button" class="btn btn-primary"><?= $category['name'] ?> </a>
+                <a href="booklist.php?category=<?= $category['abbrev'] ?>&" type="button" class="btn btn-primary"><?= $category['name'] ?> </a>
         <?php
             }
         } else {
