@@ -1,9 +1,3 @@
-<?php
-require 'config/dbcon.php';
-session_start();
-//$userID = mysqli_real_escape_string($conn, $_GET['id']);
-//$_SESSION['userID'] =  $userID;
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,113 +5,81 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library System</title>
-    <link rel="icon" type="image/x-icon" href="../Assets/Images/bookshelf.png" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/assets/css/index.css" />
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="Asset/CSS/index.css">
+    <!-- font link -->
     <style>
-        h1,
-        h3 {
-            text-align: center !important;
-            width: 100%;
-        }
-
-        .container {
-            width: 40% !important;
-            background-color: rgba(206, 206, 206, 0.842);
-            border-radius: 2vw;
-            float: left;
-            display: grid;
-            margin-left: 2vw !important;
-            margin-bottom: 2vw !important;
-        }
-
-        .btn {
-            width: 40% !important;
-            margin: 10px auto;
-        }
-
-        .count {
-            float: right !important;
-            margin-right: 2vw !important;
-            display: block;
-        }
-
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card {
-            padding: 10px;
-            border: 2px solid black !important;
-            text-align: center;
-            height: 120px !important;
-            width: 40% !important;
-            border-radius: 1vw;
-            margin: 1vw;
-            font-size: 1.5vw !important;
-        }
-
-        .numbers {
-            background-color: white;
-            width: 50%;
-            padding: 10px 0;
-            margin: 0 auto;
+        @import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
+    </style>
+    <!-- ito naman para mahide muna yung log in -->
+    <style>
+        .log-in-container {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-primary">
-        <span class="navbar-text">
-            Dashboard
-        </span>
-        <a type="button" id="logout">Log Out</a>
-        <!-- <a class="navbar-brand fixed-top py-lg-0 padding" href="#"> -->
-        <!-- <img src=" ../Assets/Images/logo.jpg" alt="basc-logo" class="d-inline-block align-top img-circle"> -->
-        </a>
-    </nav>
-
-    <h1>BASC Library System</h1>
-
-    <div class="container">
-        <h3>Books</h3>
-        <?php
-        //add userID to redirect link
-        $query = "SELECT * FROM category ORDER BY `category`.`id` ASC";
-        $result = mysqli_query($conn, $query);
-        if (mysqli_num_rows($result) > 0) {
-            foreach ($result as $category) {
-        ?>
-                <a href="../index.php?category=<?= $category['abbrev'] ?>" type="button" class="btn btn-primary"><?= $category['name'] ?> </a>
-        <?php
-            }
-        } else {
-            echo "<h5> No Record Found </h5>";
-        }
-        ?>
-    </div>
-    <div class="count container">
-        <h3>Accounts</h3>
-        <div class="cards">
-            <div class="card">
-                <p> Students </p>
-                <div class="numbers"><?= 22 ?> </div>
-            </div>
-            <div class="card">
-                <p> Faculty </p>
-                <div class="numbers"><?= 12 ?> </div>
-            </div>
-            <div class="card">
-                <p> Staff </p>
-                <div class="numbers"><?= 4 ?> </div>
-            </div>
+    <div class="form-container">
+        <div class="title">
+            <h1>WELCOME</h1>
         </div>
+
+        <form action="Function/function.php" method="POST">
+            <!-- Sign Up Form -->
+            <div class="sign-up-container">
+                <div class="input-container">
+                    <label for="idNumber">ID Number: </label>
+                    <input type="text" name="idNumber" id="idNumber" placeholder="2022000423" pattern="[0-9]{10}" title="Please input number only." required>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" id="password" pattern="(?=.*[a-zA-Z])(?=.*[0-9]).{8,}" title="Please input at least 8 alphanumeric characters." required>
+                </div>
+                <div class="option-container">
+                    <label for="role">Role:</label>
+                    <select name="role" id="role">
+                        <option value="none" class="options">Choose Here</option>
+                        <option value="student" class="options">Student</option>
+                        <option value="faculty" class="options">Faculty</option>
+                        <option value="staff" class="options">Staff</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button class="button" type="submit" name="signUp-button">Sign Up</button>
+                    <p>Already have an account?<button class="log-in" id="logIn" onclick="showLogIn()">Log In</button></p>
+                </div>
+            </div>
+
+            <!-- Log In Form -->
+            <div class="log-in-container">
+                <div class="input-container">
+                    <label for="idNumber">ID Number: </label>
+                    <input type="text" name="idNumber" id="idNumber" placeholder="2022000423" pattern="[0-9]{10}" title="Please input number only." required>
+                </div>
+                <div class="input-container">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" id="password" pattern="(?=.*[a-zA-Z])(?=.*[0-9]).{8,}" title="Please input at least 8 alphanumeric characters." required>
+                </div>
+                <div class="button-container">
+                    <button class="button" type="submit" name="logIn-button">Log In</button>
+                    <p>Don't have an account?<button class="sign-up" id="signUp" onclick="showSignUp()">Sign Up</button></p>
+                </div>
+            </div>
+        </form>
     </div>
+    <!-- ito para magshow and maghide yung sign up and log in -->
+    <script>
+        function showSignUp() {
+            document.querySelector('.sign-up-container').style.display = 'block';
+            document.querySelector('.log-in-container').style.display = 'none';
+        }
+
+        function showLogIn() {
+            document.querySelector('.sign-up-container').style.display = 'none';
+            document.querySelector('.log-in-container').style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>
