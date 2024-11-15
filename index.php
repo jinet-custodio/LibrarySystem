@@ -50,7 +50,8 @@
                     <p>Already have an account?<button class="log-in" id="logIn" onclick="showLogIn()">Log In</button></p>
                 </div>
             </div>
-
+        </form>
+        <form action="Function/function.php" method="POST">
             <!-- Log In Form -->
             <div class="log-in-container">
                 <div class="input-container">
