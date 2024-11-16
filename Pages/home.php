@@ -102,20 +102,44 @@ session_start();
         }
         ?>
     </div>
-    <div class="count container">
+ <div class="count container">
         <h3>Accounts</h3>
         <div class="cards">
+            <?php
+            $student_count_query = "SELECT COUNT(*) AS studentNumber FROM userinfo WHERE role = 'student'";
+            $student_count_result = mysqli_query($conn, $student_count_query);
+            if ($student_count_result) {
+                $student_count = mysqli_fetch_assoc($student_count_result);
+                $studentNumber = $student_count['studentNumber'];
+            }
+            ?>
             <div class="card">
                 <p> Students </p>
-                <div class="numbers"><?= 22 ?> </div>
+                <div class="numbers"><?= $studentNumber ?> </div>
             </div>
+            <?php
+            $faculty_count_query = "SELECT COUNT(*) AS facultyNumber FROM userinfo WHERE role = 'faculty'";
+            $faculty_count_result = mysqli_query($conn, $faculty_count_query);
+            if ($faculty_count_result) {
+                $faculty_count = mysqli_fetch_assoc($faculty_count_result);
+                $facultyNumber = $faculty_count['facultyNumber'];
+            }
+            ?>
             <div class="card">
                 <p> Faculty </p>
-                <div class="numbers"><?= 12 ?> </div>
+                <div class="numbers"><?= $facultyNumber ?> </div>
             </div>
+            <?php
+            $staff_count_query = "SELECT COUNT(*) AS staffNumber FROM userinfo WHERE role = 'staff'";
+            $staff_count_result = mysqli_query($conn, $staff_count_query);
+            if ($staff_count_result) {
+                $staff_count = mysqli_fetch_assoc($staff_count_result);
+                $staffNumber = $staff_count['staffNumber'];
+            }
+            ?>
             <div class="card">
                 <p> Staff </p>
-                <div class="numbers"><?= 4 ?> </div>
+                <div class="numbers"><?= $staffNumber ?> </div>
             </div>
         </div>
     </div>
