@@ -38,7 +38,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
 
         .books {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
         }
@@ -63,7 +63,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
         .pic img {
             margin: 0.4vw;
             width: 110px !important;
-            height: 110px !important;
+            aspect-ratio: 1/1.5;
             border: 4px solid rgb(201, 200, 200);
             object-fit: cover;
         }
@@ -73,8 +73,13 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             border-color: rgb(21, 20, 20);
             color: rgb(234, 231, 231);
             border-radius: 3vw !important;
-            margin: 0.1vw !important;
+            margin: 0.5vw !important;
             padding: 3px 6px !important;
+        }
+
+        input {
+            margin: 0.4vw;
+            width: 90%;
         }
     </style>
 </head>
@@ -121,7 +126,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
                             if ($book['cover'] == '') {
                                 echo '<img src="../assets/images/no-cover.png" alt="No Cover Found">';
                             } else {
-                                echo '<img src="../assets/images/books/' . $book['cover'] . '" alt="User Profile Picture">';
+                                echo '<img src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
                             }
                             ?>
                         </div>
