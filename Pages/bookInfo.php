@@ -72,6 +72,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             width: 30% !important;
         }
 
+
         .custom {
             background-color: #137901;
             padding: 5px 10px !important;
@@ -104,8 +105,11 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
         }
 
         .buttons {
-            width: 30%;
+            width: 25%;
             margin: 1.5vw auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .readnow {
