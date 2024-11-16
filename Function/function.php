@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../Config/dbcon.php';
 
 if (isset($_POST['signUp-button'])) {
@@ -8,16 +9,25 @@ if (isset($_POST['signUp-button'])) {
 
     if ($role != 'none') {
         if ($idNumber != '' && $password != '') {
-            $insert_query = "INSERT INTO userinfo(idNumber, password, role) 
-            VALUES('$idNumber', '$password', '$role')";
-            $result = mysqli_query($conn, $insert_query);
-            if ($result) {
-                header('Location:../Pages/home.php');
+            $check_query = "SELECT * FROM userinfo WHERE idNumber = '$idNumber'";
+            $check_result = mysqli_query($conn, $check_query);
+            if (mysqli_num_rows($check_result) == 0) {
+                $insert_query = "INSERT INTO userinfo(idNumber, password, role) 
+                VALUES('$idNumber', '$password', '$role')";
+                $result = mysqli_query($conn, $insert_query);
+                if ($result) {
+                    header('Location:../Pages/home.php');
+                    exit();
+                }
+            } else {
+                $_SESSION['message'] = "The user already exist!";
+                header('Location:../index.php');
                 exit();
             }
         }
     } else {
-        echo 'Please select a role!';
+        $_SESSION['message'] = "Please select a role!";
+        header('Location:../index.php');
     }
 }
 
@@ -32,8 +42,7 @@ if (isset($_POST['logIn-button'])) {
         header('Location:../Pages/home.php');
         exit();
     } else {
-        echo 'may error1';
+        $_SESSION['message'] = "Incorrect ID Number or password!";
+        header('Location:../index.php?error=true');
     }
-} else {
-    echo 'may error';
 }
