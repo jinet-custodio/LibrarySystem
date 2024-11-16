@@ -1,3 +1,9 @@
+<?php
+// require 'Config/dbcon.php';
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +30,14 @@
         <div class="title">
             <h1>WELCOME</h1>
         </div>
-
+        <div class="message-container">
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo htmlspecialchars($_SESSION['message']);
+                unset($_SESSION['message']); // aalisin after ma display
+            }
+            ?>
+        </div>
         <form action="Function/function.php" method="POST">
             <!-- Sign Up Form -->
             <div class="sign-up-container">
@@ -80,7 +93,14 @@
             document.querySelector('.sign-up-container').style.display = 'none';
             document.querySelector('.log-in-container').style.display = 'block';
         }
+        //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            showLogIn();
+        }
     </script>
+
+
 </body>
 
 </html>
