@@ -53,13 +53,6 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             font-size: 1.5vw !important;
         }
 
-        .numbers {
-            background-color: white;
-            width: 50%;
-            padding: 10px 0;
-            margin: 0 auto;
-        }
-
         .pic img {
             margin: 0.4vw;
             width: 110px !important;
@@ -75,6 +68,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             border-radius: 3vw !important;
             margin: 0.5vw !important;
             padding: 3px 6px !important;
+            font-size: 1.3vw;
         }
 
         input {
@@ -134,7 +128,8 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
                         <input type="text" class="text bold" value="Author/s: <?= $book['author'] ?>" readonly />
                         <input type="text" class="text bold" value="Date Published: <?= $book['date_published'] ?>" readonly />
                         <div class="buttons">
-                            <a type="button" class="btn custom-btn" href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>"> Read</a>
+                            <a type="button" class="btn custom-btn" href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>"> Read</a>
+
                         </div>
 
                     </div>

@@ -12,7 +12,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library System</title>
     <!-- CSS Link -->
-    <link rel="stylesheet" href="Asset/CSS/index.css">
+    <link rel="stylesheet" href="Assets/CSS/index.css">
     <!-- font link -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
