@@ -57,8 +57,17 @@ session_start();
         </div>
 
         <h1>Welcome, Bookworm!</h1>
+
         <div class="count-container">
             <h3>Registered Accounts</h3>
+            <?php
+            $student_count_query = "SELECT COUNT(*) AS studentNumber FROM userinfo WHERE role = 'student'";
+            $student_count_result = mysqli_query($conn, $student_count_query);
+            if ($student_count_result) {
+                $student_count = mysqli_fetch_assoc($student_count_result);
+                $studentNumber = $student_count['studentNumber'];
+            }
+            ?>
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="../Asset/Images/student.png" alt="Card image cap">
                 <div class="card-body">
@@ -104,9 +113,6 @@ session_start();
                 ?>
                 <div class="numbers"><?= $staffNumber ?> </div>
             </div>
-        </div>
-
-        </div>
         </div>
 </body>
 
