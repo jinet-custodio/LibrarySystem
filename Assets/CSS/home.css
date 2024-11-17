@@ -1,7 +1,8 @@
 body {
   background-image: url(../Images/homebg.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 160vw 80vw;
+  background-position: -20vw -5vw;
 }
 
 .navbar-brand {
@@ -29,6 +30,7 @@ body {
   width: 18vw;
   background-color: rgb(0, 143, 2);
   position: absolute;
+  margin-top: -1.2vw;
   /* height: 100vw; */
   overflow: auto;
 }
@@ -83,13 +85,13 @@ h3 {
 }
 
 .count-container {
-  width: 90% !important;
+  /* width: 90% !important; */
   display: flex;
   /* flex-wrap: wrap; */
   justify-content: center;
   /* margin-left: 34vw !important; */
   margin-bottom: 2vw !important;
-  margin-left: 15vw;
+  margin-left: 17vw;
   margin-top: 5vw;
 }
 
