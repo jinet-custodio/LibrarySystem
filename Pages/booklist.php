@@ -1,8 +1,8 @@
 <?php
-// require 'Config/dbcon.php';
+require '../config/dbcon.php';
 session_start();
+$category = mysqli_real_escape_string($conn, $_GET['category']);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,122 +10,109 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library System</title>
+    <link rel="icon" type="image/x-icon" href="../Assets/Images/bookshelf.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="Assets/CSS/index.css">
-    <!-- font link -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
-    </style>
-    <!-- ito naman para mahide muna yung log in -->
-    <style>
-        .log-in-container {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../Assets/CSS/booklist.css" />
+
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="logo">
-            <img src="Assets/Images/BASClogo.png" alt="Basc Logo" class="logo1">
-            <img src="Assets/Images/library.png" alt="Basc Library Logo" class="logo2">
-        </div>
+    <form action="../function/logOut.php" method="POST">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(248, 238, 238);">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../Assets/Images/library.png" alt="Logo" width="80" height="auto" class="d-inline-block">
+                    BASC LIBRARY
+                </a>
+
+                <nav class="navbar bg-body-tertiary">
+                    <form class="container-fluid justify-content-start">
+                        <button class="btn btn-outline-success me-2" type="submit" id="logOut" value="logOut"
+                            name="logOut">Log Out</button>
+
+                    </form>
+                </nav>
+            </div>
+        </nav>
+    </form>
+    <div class="sidebar">
+        <a class="home" href="../Pages/home.php"> <img src="../Assets/Images/homeicon.png" class="homeicon">Home</a>
+        <?php
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        $query = "SELECT * FROM category ORDER BY `category`.`id` ASC";
+        $result = mysqli_query($conn, $query);
+        $selectedCategory = isset($_GET['category']) ? $_GET['category'] : '';
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($cat = mysqli_fetch_assoc($result)) {
+                $isActive = ($cat['abbrev'] == $selectedCategory) ? 'active' : '';
+        ?>
+                <a href="booklist.php?category=<?= $cat['abbrev'] ?>" class="<?= $isActive ?>"><?= $cat['name'] ?></a>
+        <?php
+            }
+        } else {
+            echo "<h5>No Record Found</h5>";
+        }
+        ?>
+    </div>
 
 
+    <div class="container">
+        <?php
 
-        <div class="error-message">
+        $query = "SELECT * FROM category WHERE abbrev ='$category'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            $fetch = mysqli_fetch_assoc($result)
+        ?>
+            <h3> <?= $fetch['name'] ?> Books</h3>
+        <?php
+
+        } else {
+            echo "<h5> No Record Found </h5>";
+        }
+        ?>
+        <div class="books">
             <?php
-            if (isset($_SESSION['message'])) {
-                echo htmlspecialchars($_SESSION['message']);
-                unset($_SESSION['message']); // aalisin after ma display
+            //add userID to redirect link
+            $query = "SELECT * FROM books WHERE category = '$category'";
+            $result = mysqli_query($conn, $query);
+            if (mysqli_num_rows($result) > 0) {
+                foreach ($result as $book) {
+            ?>
+
+                    <div class="card">
+                        <div class="pic">
+                            <?php
+                            if ($book['cover'] == '') {
+                                echo '<img src="../assets/images/no-cover.png" alt="No Cover Found">';
+                            } else {
+                                echo '<img src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
+                            }
+                            ?>
+                        </div>
+                        <input type="text" class="text bold" value="<?= $book['name'] ?>" readonly />
+                        <input type="text" class="text bold" value="Author/s: <?= $book['author'] ?>" readonly />
+                        <input type="text" class="text bold" value="Date Published: <?= $book['date_published'] ?>" readonly />
+                        <div class="buttons">
+                            <a type="button" class="btn custom-btn" href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>"> Read</a>
+
+                        </div>
+
+                    </div>
+            <?php
+                }
+            } else {
+                echo "<h5> No Books Found </h5>";
             }
             ?>
         </div>
-
-        <!-- Sign Up Form -->
-        <form action="Function/function.php" method="POST">
-
-            <div class="sign-up-container">
-
-
-                <div class="input">
-                    <input type="text" class="form-control" name="idNumber" id="idNumber"
-                        placeholder="ID NUMBER (e.g. 2022000423)" pattern="[0-9]{10}" title="Please input number only."
-                        required>
-
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-                        pattern="(?=.*[a-zA-Z])(?=.*[0-9]).{8,}"
-                        title="Please input at least 8 alphanumeric characters." required>
-                </div>
-
-                <div class="mb-3">
-                    <select name="role" id="role" class="form-select">
-                        <option value="none" selected>Select an Occupation</option>
-                        <option value="student" class="options">Student</option>
-                        <option value="faculty" class="options">Faculty</option>
-                        <option value="staff" class="options">Staff</option>
-                    </select>
-                </div>
-
-                <div class="button-container">
-                    <button class="btn btn-primary" type="submit" name="signUp-button">Sign Up</button>
-
-                </div>
-
-                <p>Already have an account?<button class="btn btn-success" id="logIn" onclick="showLogIn()">Log
-                        In</button>
-                </p>
-            </div>
-        </form>
-        <!-- Log In Form -->
-        <form action="Function/function.php" method="POST">
-            <div class="log-in-container">
-                <div class="input">
-                    <input type="text" class="form-control" name="idNumber" id="idNumber"
-                        placeholder="ID NUMBER (e.g. 2022000423)" pattern="[0-9]{10}" title="Please input number only."
-                        required>
-
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-                        pattern="(?=.*[a-zA-Z])(?=.*[0-9]).{8,}"
-                        title="Please input at least 8 alphanumeric characters." required>
-                </div>
-
-
-                <div class="button-container">
-                    <button class="btn btn-primary" type="submit" name="logIn-button">Log In</button>
-
-                </div>
-
-                <p>Don't have an account?<button class="btn btn-success" id="signUp" onclick="showSignUp()">Sign
-                        Up</button>
-                </p>
-
-            </div>
-        </form>
-
-        <!-- ito para magshow and maghide yung sign up and log in -->
-        <script>
-            function showSignUp() {
-                document.querySelector('.sign-up-container').style.display = 'block';
-                document.querySelector('.log-in-container').style.display = 'none';
-            }
-
-            function showLogIn() {
-                document.querySelector('.sign-up-container').style.display = 'none';
-                document.querySelector('.log-in-container').style.display = 'block';
-            }
-            //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('error')) {
-                showLogIn();
-            }
-        </script>
     </div>
 
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
