@@ -56,47 +56,55 @@ session_start();
         ?>
         </div>
 
-        <h1>Welcome, Bookworm!</h1>
+                <h1>Welcome, Bookworm!</h1>
 
         <div class="count-container">
             <h3>Registered Accounts</h3>
+            <?php
+            $student_count_query = "SELECT COUNT(*) AS studentNumber FROM userinfo WHERE role = 'student'";
+            $student_count_result = mysqli_query($conn, $student_count_query);
+            if ($student_count_result) {
+                $student_count = mysqli_fetch_assoc($student_count_result);
+                $studentNumber = $student_count['studentNumber'];
+            }
+            ?>
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="../Asset/Images/student.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Students</h5>
-                    <div class="numbers"><?= 22 ?> </div>
+                    <div class="numbers"><?= $studentNumber ?> </div>
                 </div>
             </div>
+            <?php
+            $faculty_count_query = "SELECT COUNT(*) AS facultyNumber FROM userinfo WHERE role = 'faculty'";
+            $faculty_count_result = mysqli_query($conn, $faculty_count_query);
+            if ($faculty_count_result) {
+                $faculty_count = mysqli_fetch_assoc($faculty_count_result);
+                $facultyNumber = $faculty_count['facultyNumber'];
+            }
+            ?>
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="../Asset/Images/faculty.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Faculty</h5>
-                    <div class="numbers"><?= 12?> </div>
+                    <div class="numbers"><?= $facultyNumber ?> </div>
                 </div>
             </div>
+            <?php
+            $staff_count_query = "SELECT COUNT(*) AS staffNumber FROM userinfo WHERE role = 'staff'";
+            $staff_count_result = mysqli_query($conn, $staff_count_query);
+            if ($staff_count_result) {
+                $staff_count = mysqli_fetch_assoc($staff_count_result);
+                $staffNumber = $staff_count['staffNumber'];
+            }
+            ?>
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="../Asset/Images/employee.png" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Staff</h5>
-                    <div class="numbers"><?= 4?> </div>
+                    <div class="numbers"><?= $staffNumber ?> </div>
                 </div>
             </div>
-
-
-            <!-- <div class="cards">
-                <div class="card">
-                    <p> Students </p>
-                    <div class="numbers"><?= 22 ?> </div>
-                </div>
-                <div class="card">
-                    <p> Faculty </p>
-                    <div class="numbers"><?= 12 ?> </div>
-                </div>
-                <div class="card">
-                    <p> Staff </p>
-                    <div class="numbers"><?= 4 ?> </div>
-                </div>
-            </div> -->
         </div>
 
 
