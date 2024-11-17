@@ -20,13 +20,13 @@ if (isset($_POST['signUp-button'])) {
                     exit();
                 }
             } else {
-                $_SESSION['message'] = "The user already exist!";
+                $_SESSION['message'] = "The user already exists!";
                 header('Location:../index.php');
                 exit();
             }
         }
     } else {
-        $_SESSION['message'] = "Please select a role!";
+        $_SESSION['message'] = "Please select an occupation!";
         header('Location:../index.php');
     }
 }

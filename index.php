@@ -18,13 +18,13 @@ session_start();
     <link rel="stylesheet" href="Assets/CSS/index.css">
     <!-- font link -->
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
     </style>
     <!-- ito naman para mahide muna yung log in -->
     <style>
-    .log-in-container {
-        display: none;
-    }
+        .log-in-container {
+            display: none;
+        }
     </style>
 </head>
 
@@ -64,7 +64,7 @@ session_start();
 
                 <div class="mb-3">
                     <select name="role" id="role" class="form-select">
-                        <option value="none" selected disabled>Select an Occupation</option>
+                        <option value="none" selected>Select an Occupation</option>
                         <option value="student" class="options">Student</option>
                         <option value="faculty" class="options">Faculty</option>
                         <option value="staff" class="options">Staff</option>
@@ -114,20 +114,20 @@ session_start();
 
         <!-- ito para magshow and maghide yung sign up and log in -->
         <script>
-        function showSignUp() {
-            document.querySelector('.sign-up-container').style.display = 'block';
-            document.querySelector('.log-in-container').style.display = 'none';
-        }
+            function showSignUp() {
+                document.querySelector('.sign-up-container').style.display = 'block';
+                document.querySelector('.log-in-container').style.display = 'none';
+            }
 
-        function showLogIn() {
-            document.querySelector('.sign-up-container').style.display = 'none';
-            document.querySelector('.log-in-container').style.display = 'block';
-        }
-        //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('error')) {
-            showLogIn();
-        }
+            function showLogIn() {
+                document.querySelector('.sign-up-container').style.display = 'none';
+                document.querySelector('.log-in-container').style.display = 'block';
+            }
+            //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                showLogIn();
+            }
         </script>
     </div>
 
