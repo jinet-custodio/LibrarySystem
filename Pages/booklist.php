@@ -9,7 +9,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library System</title>
+    <title>Book List</title>
     <link rel="icon" type="image/x-icon" href="../Assets/Images/bookshelf.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
@@ -51,7 +51,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             while ($cat = mysqli_fetch_assoc($result)) {
                 $isActive = ($cat['abbrev'] == $selectedCategory) ? 'active' : '';
         ?>
-        <a href="booklist.php?category=<?= $cat['abbrev'] ?>" class="<?= $isActive ?>"><?= $cat['name'] ?></a>
+                <a href="booklist.php?category=<?= $cat['abbrev'] ?>" class="<?= $isActive ?>"><?= $cat['name'] ?></a>
         <?php
             }
         } else {
@@ -63,111 +63,56 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
     <div class="container">
         <?php
 
-$query = "SELECT * FROM category WHERE abbrev ='$category'";
-$result = mysqli_query($conn, $query);
-if (mysqli_num_rows($result) > 0) {
-    $fetch = mysqli_fetch_assoc($result)
-?>
-        <h3 class="catTitle"> <?= $fetch['name'] ?> Books</h3>
-        <?php
-
-} else {
-    echo "<h5> No Record Found </h5>";
-}
-?>
-    </div>
-
-    <div class="row">
-        <?php
-    // Add userID to redirect link
-    $query = "SELECT * FROM books WHERE category = '$category'";
-    $result = mysqli_query($conn, $query);
-    if (mysqli_num_rows($result) > 0) {
-        foreach ($result as $book) {
-    ?>
-        <div class="col">
-            <!-- Optional: Bootstrap grid column for better layout -->
-            <div class="card" style="width: 18rem;">
-                <!-- Create a card for each book -->
-                <?php
-            if ($book['cover'] == '') {
-                echo '<img class="card-img-top" src="../assets/images/no-cover.png" alt="No Cover Found">';
-            } else {
-                echo '<img class="card-img-top" src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
-            }
-            ?>
-                <div class="card-body">
-                    <h5 class="card-title"><?= htmlspecialchars($book['name']) ?></h5>
-                    <p class="card-text">Author/s: <?= htmlspecialchars($book['author']) ?></p>
-                    <p class="card-text">Date Published: <?= htmlspecialchars($book['date_published']) ?></p>
-                    <a type="button" class="btn btn-primary"
-                        href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>">Read</a>
-                </div>
-            </div>
-        </div>
-        <?php
-        }
-    } else {
-        echo "<h5>No Books Found</h5>";
-    }
-    ?>
-    </div>
-
-
-
-
-    <!-- <div class="container">
-        <?php
-
         $query = "SELECT * FROM category WHERE abbrev ='$category'";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) {
             $fetch = mysqli_fetch_assoc($result)
         ?>
-        <h3> <?= $fetch['name'] ?> Books</h3>
+            <h3 class="catTitle"> <?= $fetch['name'] ?> Books</h3>
         <?php
 
         } else {
             echo "<h5> No Record Found </h5>";
         }
         ?>
-        <div class="books">
-            <?php
-            //add userID to redirect link
-            $query = "SELECT * FROM books WHERE category = '$category'";
-            $result = mysqli_query($conn, $query);
-            if (mysqli_num_rows($result) > 0) {
-                foreach ($result as $book) {
-            ?>
+    </div>
 
-            <div class="card">
-                <div class="pic">
-                    <?php
-                            if ($book['cover'] == '') {
-                                echo '<img src="../assets/images/no-cover.png" alt="No Cover Found">';
-                            } else {
-                                echo '<img src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
-                            }
-                            ?>
+    <div class="row">
+        <?php
+        // Add userID to redirect link
+        $query = "SELECT * FROM books WHERE category = '$category'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            foreach ($result as $book) {
+        ?>
+                <div class="col">
+                    <!-- Optional: Bootstrap grid column for better layout -->
+                    <div class="card" style="width: 18rem;">
+                        <!-- Create a card for each book -->
+                        <?php
+                        if ($book['cover'] == '') {
+                            echo '<img class="card-img-top" src="../assets/images/no-cover.png" alt="No Cover Found">';
+                        } else {
+                            echo '<img class="card-img-top" src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
+                        }
+                        ?>
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($book['name']) ?></h5>
+                            <p class="card-text">Author/s: <?= htmlspecialchars($book['author']) ?></p>
+                            <p class="card-text">Date Published: <?= htmlspecialchars($book['date_published']) ?></p>
+                            <a type="button" class="btn btn-primary"
+                                href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>">Read</a>
+                        </div>
+                    </div>
                 </div>
-                <input type="text" class="text bold" value="<?= $book['name'] ?>" readonly />
-                <input type="text" class="text bold" value="Author/s: <?= $book['author'] ?>" readonly />
-                <input type="text" class="text bold" value="Date Published: <?= $book['date_published'] ?>" readonly />
-                <div class="buttons">
-                    <a type="button" class="btn custom-btn"
-                        href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>"> Read</a>
-
-                </div>
-
-            </div>
-            <?php
-                }
-            } else {
-                echo "<h5> No Books Found </h5>";
+        <?php
             }
-            ?>
-        </div>
-    </div> -->
+        } else {
+            echo "<h5>No Books Found</h5>";
+        }
+        ?>
+    </div>
+
 
 </body>
 
