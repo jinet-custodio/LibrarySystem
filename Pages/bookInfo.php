@@ -24,7 +24,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
     <form action="../function/logOut.php" method="POST">
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(248, 238, 238);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="../Pages/home.php">
                     <img src="../Assets/Images/library.png" alt="Logo" width="80" height="auto" class="d-inline-block">
                     BASC LIBRARY
                 </a>

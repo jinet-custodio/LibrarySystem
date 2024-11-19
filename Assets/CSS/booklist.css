@@ -29,7 +29,7 @@ h3 {
   width: 18vw;
   background-color: rgb(0, 143, 2);
   position: absolute;
-  height: 100vw;
+  height: 120vw;
   overflow: auto;
 }
 
@@ -98,19 +98,18 @@ h3 {
   font-size: 1.3vw;
 }
 
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: 15.5vw;
-  margin-top: -2vw;
-}
 .card {
   margin-top: 3vw;
   padding: 15px;
   display: flex;
   flex-direction: column;
-  height: 90%;
+  justify-content: space-between;
+  height: 32vw !important;
+  border: 2px solid rgb(0, 143, 2);
+  background-color: rgba(255, 255, 255, 0.281);
+  backdrop-filter: blur(10px) brightness(85%);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .row {
@@ -118,7 +117,7 @@ h3 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-left: 17vw;
+  margin-left: 15vw;
 }
 
 .card-title {
@@ -141,4 +140,13 @@ h3 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex: 0 0 0;
+  margin-left: 3vw;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
 }

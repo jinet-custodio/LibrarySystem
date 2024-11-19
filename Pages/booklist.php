@@ -22,7 +22,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
     <form action="../function/logOut.php" method="POST">
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(248, 238, 238);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="../Pages/home.php">
                     <img src="../Assets/Images/library.png" alt="Logo" width="80" height="auto" class="d-inline-block">
                     BASC LIBRARY
                 </a>
@@ -51,7 +51,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
             while ($cat = mysqli_fetch_assoc($result)) {
                 $isActive = ($cat['abbrev'] == $selectedCategory) ? 'active' : '';
         ?>
-                <a href="booklist.php?category=<?= $cat['abbrev'] ?>" class="<?= $isActive ?>"><?= $cat['name'] ?></a>
+        <a href="booklist.php?category=<?= $cat['abbrev'] ?>" class="<?= $isActive ?>"><?= $cat['name'] ?></a>
         <?php
             }
         } else {
@@ -68,7 +68,7 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
         if (mysqli_num_rows($result) > 0) {
             $fetch = mysqli_fetch_assoc($result)
         ?>
-            <h3 class="catTitle"> <?= $fetch['name'] ?> Books</h3>
+        <h3 class="catTitle"> <?= $fetch['name'] ?> Books</h3>
         <?php
 
         } else {
@@ -85,26 +85,30 @@ $category = mysqli_real_escape_string($conn, $_GET['category']);
         if (mysqli_num_rows($result) > 0) {
             foreach ($result as $book) {
         ?>
-                <div class="col">
-                    <!-- Optional: Bootstrap grid column for better layout -->
-                    <div class="card" style="width: 18rem;">
-                        <!-- Create a card for each book -->
-                        <?php
+        <div class="col">
+            <!-- Optional: Bootstrap grid column for better layout -->
+            <div class="card" style="width: 18rem;">
+                <!-- Create a card for each book -->
+                <?php
                         if ($book['cover'] == '') {
                             echo '<img class="card-img-top" src="../assets/images/no-cover.png" alt="No Cover Found">';
                         } else {
                             echo '<img class="card-img-top" src="../assets/images/books/' . $book['category'] . '/' . $book['cover'] . '" alt="Book Cover">';
                         }
                         ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($book['name']) ?></h5>
-                            <p class="card-text">Author/s: <?= htmlspecialchars($book['author']) ?></p>
-                            <p class="card-text">Date Published: <?= htmlspecialchars($book['date_published']) ?></p>
-                            <a type="button" class="btn btn-primary"
-                                href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>">Read</a>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <h5 class="card-title"><?= htmlspecialchars($book['name']) ?></h5>
+                    <p class="card-text">Author/s: <?= htmlspecialchars($book['author']) ?></p>
+                    <p class="card-text">Date Published: <?= htmlspecialchars($book['date_published']) ?></p>
+
                 </div>
+
+                <div class="card-footer">
+                    <a type="button" class="btn btn-primary"
+                        href="/pages/bookInfo.php?bookID=<?= $book['book_id'] ?>&category=<?= $category ?>">Read</a>
+                </div>
+            </div>
+        </div>
         <?php
             }
         } else {
