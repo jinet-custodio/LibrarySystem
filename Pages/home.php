@@ -48,7 +48,7 @@ session_start();
                 foreach ($result as $category) {
                     //add userid get variable to the href using & (example href="../index.php?category=<?= $category['abbrev']?greaterthan & userID =<?= $userID ? =greaterthan)
             ?>
-                    <a href="booklist.php?category=<?= $category['abbrev'] ?>" type="button"><?= $category['name'] ?> </a>
+            <a href="booklist.php?category=<?= $category['abbrev'] ?>" type="button"><?= $category['name'] ?> </a>
             <?php
                 }
             } else {

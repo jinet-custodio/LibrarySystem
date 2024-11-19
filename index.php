@@ -110,25 +110,25 @@ session_start();
                 </div> -->
             </div>
         </form>
+
+        <!-- ito para magshow and maghide yung sign up and log in -->
+        <script>
+            function showSignUp() {
+                document.querySelector('.sign-up-container').style.display = 'block';
+                document.querySelector('.log-in-container').style.display = 'none';
+            }
+
+            function showLogIn() {
+                document.querySelector('.sign-up-container').style.display = 'none';
+                document.querySelector('.log-in-container').style.display = 'block';
+            }
+            //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                showLogIn();
+            }
+        </script>
     </div>
-    <!-- ito para magshow and maghide yung sign up and log in -->
-    <script>
-        function showSignUp() {
-            document.querySelector('.sign-up-container').style.display = 'block';
-            document.querySelector('.log-in-container').style.display = 'none';
-        }
-
-        function showLogIn() {
-            document.querySelector('.sign-up-container').style.display = 'none';
-            document.querySelector('.log-in-container').style.display = 'block';
-        }
-        //  para hindi mag redirect sa sign up pag ishoshow yung error message para sa log in
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('error')) {
-            showLogIn();
-        }
-    </script>
-
 
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
 </body>
