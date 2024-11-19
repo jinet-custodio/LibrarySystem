@@ -1,0 +1,164 @@
+body {
+  background-image: url(../Images/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100vw 100vw;
+  background-position: 10vw -5vw;
+}
+
+.navbar-brand {
+  font-family: "Rowdies";
+  font-size: 2vw;
+  margin-left: 1vw;
+}
+
+.navbar-brand:hover {
+  color: rgb(59, 187, 20);
+}
+.nav-link {
+  color: rgb(31, 107, 7);
+  font-size: 20px;
+  margin: 10px;
+}
+
+.nav-link:hover {
+  color: rgb(59, 187, 20);
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 18vw;
+  background-color: rgb(0, 143, 2);
+  position: absolute;
+  height: 72vw;
+  overflow: auto;
+}
+
+.home {
+  background-color: rgb(255, 174, 0);
+  text-align: center;
+}
+
+.homeicon {
+  width: 1.6vw;
+  height: auto;
+  margin-right: 0.6vw;
+  margin-bottom: 0.3vw;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  padding: 16px;
+  text-decoration: none;
+  font-family: "Luckiest Guy";
+  font-size: 1.5vw;
+  letter-spacing: 0.8px;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: rgb(155, 154, 148);
+  color: rgb(255, 255, 255);
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: rgb(255, 217, 0);
+}
+
+.container {
+  width: 80% !important;
+  height: 60vw;
+  margin-top: 2vw;
+  padding: 5px;
+  margin-right: 1vw;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vw;
+  margin-top: 5vw;
+  margin-right: 2vw;
+}
+
+h3 {
+  text-align: center;
+  font-family: "Agbalumo";
+  font-size: 3vw;
+  text-wrap: wrap;
+  color: rgb(255, 174, 0);
+  -webkit-text-stroke: 0.8px black;
+}
+
+.info {
+  width: 50%;
+  height: 8vw;
+  margin-left: 21vw;
+  margin-top: 6vw;
+}
+
+h5 {
+  font-family: "Bebas Neue";
+  font-size: 2vw;
+}
+
+.btn-success,
+.btn-warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4vw;
+  width: 30vw;
+  margin-right: 2vw;
+  margin-left: 2vw;
+}
+
+.readnow {
+  width: 78vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vw;
+}
+.pic img {
+  width: 15vw !important;
+  aspect-ratio: 1/1.5;
+  object-fit: contain;
+  margin: auto !important;
+}
+
+.pic {
+  float: left;
+  width: 20vw;
+  aspect-ratio: 1/1.5;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+.toprow {
+  width: 95%;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 25vw;
+  justify-content: space-around;
+}
+
+p {
+  font-size: 2vw;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.description {
+  margin: auto;
+  margin-top: 4vw;
+
+  width: 70vw;
+}
